@@ -3,7 +3,7 @@ zaklad = int(input())
 # cisla jako 0-9 + a-z -> 0-9(48-57) + a-z(97 - 122)
 
 input1 = input().strip()
-input2= input().strip()
+input2 = input().strip()
 input3 = input().strip()
 
 
@@ -105,15 +105,13 @@ def srovnej_delku(a, b):
 #program
 if  not (CheckNum(input1) and CheckNum(input2) and CheckNum(input3)):  
 	#konec, kdyz zlobi
-    print('ERROR')
-    exit
+	print('ERROR')
+	exit()
 #po sem ok
 
 if input1 != input2:
 	input1, input2 = srovnej_delku(input1, input2)
-		
-	
-print(input1, input2)
+
 #sem ok :)
 
 input1 = obrat(zmensi(input1))
@@ -134,16 +132,44 @@ for i in range(len(input1)): # len(in1) == len(in2)
 	else:
 		vysledek += '.'
 
+if preteceni != 0:
+	vysledek += chr((preteceni)+48)
+
+#print(obrat(roztahni(vysledek)))
+
 #scita woohoo, makin bacon *tf2 engineer dance*
+if input1 != input3:
+	input1, input3 = srovnej_delku(vysledek, input3)
 
-input1, input3 = srovnej_delku(vysledek, input3)
-vysledek = ""
-
-if input3> input1:#strigs that are numbers so this works ok :)
+minus = False
+if obrat(input3)> obrat(input1):#strnigs that are numbers so this works ok :)
+	minus = True
 	input2=input3
-	inout3=input1
+	input3=input1
 	input1=input2
 
+vysledek = ""
+preteceni = 0
+
 for i in range(len(input1)):
-	if input[i] =='.':
+	if input1[i] == '.' or False:
 		vysledek += '.'
+	else:
+		rozdil = ord(input1[i])-ord(input3[i])-preteceni # preteceni odecte jednicku kdyby náhodou
+		preteceni = 0
+		if rozdil < 0:
+			rozdil = rozdil + zaklad
+			preteceni = 1
+		vysledek += chr((rozdil+48))
+if preteceni != 0:
+	vysledek += '1'
+
+vysledek = obrat(roztahni(vysledek)).strip('0')
+
+if vysledek[0] == '.':
+	vysledek = '0' + vysledek
+
+if minus:
+	print('-' + vysledek)
+else:
+	print(vysledek)
