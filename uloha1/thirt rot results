@@ -1,0 +1,16 @@
+pro y = 27.
+
+přesnost 2 des. mista:
+2.9999999999999987
+    ^3 = 26.999999999999968
+    x se změnilo 21 krát
+
+přesnost 8 des. mist:
+2.9999999999999987
+    ^3 = 26.999999999999968
+    x se změnilo 21 krát
+
+přesnost 8 des mist, puleni inotervalu:
+3.0000000034924597
+    ^3 = 27.00000009429641
+    x se změnilo 32 krát
