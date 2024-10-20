@@ -62,3 +62,16 @@ if cislo:
             break
 
     deset_na_treti(vstup, rad)
+else:
+    vstup = vstup.strip().split()
+
+    for word in vstup:
+        for j in range(len(slova)):
+            if word == slova[j]:
+                break
+            elif j == len(slova)-1:
+                print("ERROR")
+                exit()
+
+# za timhle uz by nemel byt vstup s neplatnymy slovy :) a neni
+
