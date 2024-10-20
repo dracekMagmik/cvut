@@ -14,7 +14,7 @@ slova = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
 def deset_na_treti(cislo, rad):
     while rad > -1:
         Stovky((cislo // 10 ** (rad * 3))%1000)
-        if (cislo - (10**(rad*3))) != 0 and rad > 0:
+        if ((cislo // (10**(rad*3)))%1000) != 0 and rad > 0:
             print(slova[27+rad], end = ' ')
         rad -= 1
 
