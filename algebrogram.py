@@ -1,5 +1,6 @@
 #import library.mylib as lib
 #lib.LoL()
+import sys
 
 def readInput(name, array):
     f = open(name, "rt")
@@ -10,11 +11,33 @@ def readInput(name, array):
         else:
             break
 
+def word_bubble(ar):
+    done = False
+    while done == False:
+        done = True
+        for i in range(1, len(ar)):
+            j = i-1
+            if ord(ar[i]) < ord(ar[j]):
+                ar[j], ar[i] = ar[i], ar[j]
+                done = False
+    return ar
+
 def unique(ar):
+    letters = []
     for a in ar:
         for i in range(len(a)):
             if ord(a[i]) > 64 and ord(a[i]) < 91:
-                letters.add(a[i])
+                if len(letters) == 0:
+                    letters.append(a[i])
+                else:
+                    clear = True
+                    for b in letters:
+                        if b == a[i]:
+                            clear = False
+                            break
+                    if clear:
+                        letters.append(a[i])
+    return word_bubble(letters)
 
 
 def replace(str, ch, op, eq): # op = index of operand, eq = index of equals
@@ -54,9 +77,7 @@ def chunk_sizes(str):
 
     if plus:
         if(third_largest(i,j,k)):
-            values[i[0]] = (1, True)
-
-
+            values[k[0]] = (1, True)
 
 def third_largest(i,j,k):
     bigger = False
@@ -65,21 +86,125 @@ def third_largest(i,j,k):
     else:
         return False
 
+def ini_dict(dict, letters):
+    for i in letters:
+        dict[i] = [-1, False]
 
-letters = set()
+def diff_vals(dict, letters, taken): # koukne, zda jsou vsechny lockly hodnoty jiny
+    for i in letters:
+        if (dict[i][1]):
+            if(taken[dict[i][0]] == False):
+                taken[dict[i][0]] = True
+                continue
+            else:
+                return False
+    return True
+
+def try_values(dict, letters, index, taken):
+    if(dict[letters[index]][1]): #hodnota je lockla
+        if index != len(letters)-1:
+            if try_values(dict, letters, index+1, taken):
+                return True
+    else:
+        for i in range(10):
+            if taken[i] == False:
+                taken[i] = True
+                dict[letters[index]][0] = i
+
+                if index != len(letters) - 1:
+                    if try_values(dict, letters, index+1, taken):
+                        return True
+
+                else:
+                    if dosad(dict):
+                        return True
+
+                taken[i] = False
+    return False
+
+def dosad(dict):
+    global ar
+    for a in ar:
+
+        right = left1 = left2 = 0
+        index = 0
+        plus = False
+
+        for i in range(len(a)-1, -1, -1):
+            if(a[i] == '='):
+                right = left2
+                left2 = 0
+                index = 0
+                continue
+
+            elif a[i] == '*':
+                index = 0
+                left1 = left2
+                left2 = 0
+                continue
+
+            elif a[i] == '+':
+                index = 0
+                left1 = left2
+                left2 = 0
+                plus = True
+                continue
+
+            left2 += dict[a[i]][0] * (10**index)
+            index += 1
+
+        if plus:
+            if(left1+left2 != right):
+                return False
+        else:
+            if left1 * left2 != right:
+                return False
+
+    return True
+
+
+
+
+
+
+
+
+
 values = dict()
-ar = []
+
+ar = list()
 readInput("algebrogram.txt", ar)
+
+#ar = []
+#for l in sys.stdin:
+#    ar.append(l.strip())
+
 ar = plus_multiply(ar)
 # all in good format and even only + and / operations :) nice
 
-unique(ar)
+letters = unique(ar)
+#print(letters)
+# mam všechny pismena a to v abecednim poradi :)
 
-print(letters)
+ini_dict(values, letters)
 
 for a in ar:
     chunk_sizes(a)
 
+# dve stejne lockle hodnoty
+taken = [False]*10
+if(diff_vals(values, letters, taken) == False):
+    print('NEEXISTUJE')
+    exit()
 
-print(ar)
+#print(values)
+#print(ar)
 
+if try_values(values, letters, 0, taken):
+    for i in range(len(letters)):
+        if i == len(letters)-1:
+            print(values[letters[i]][0])
+        else:
+            print(values[letters[i]][0], end = ' ')
+else:
+    print('NEEXISTUJE')
