@@ -105,6 +105,10 @@ def try_values(dict, letters, index, taken):
         if index != len(letters)-1:
             if try_values(dict, letters, index+1, taken):
                 return True
+        else:
+            if dosad(dict):
+                return True
+
     else:
         for i in range(10):
             if taken[i] == False:
@@ -120,6 +124,7 @@ def try_values(dict, letters, index, taken):
                         return True
 
                 taken[i] = False
+
     return False
 
 def dosad(dict):
@@ -154,30 +159,24 @@ def dosad(dict):
             index += 1
 
         if plus:
-            if(left1+left2 != right):
+            if(left1+left2) != right:
                 return False
         else:
-            if left1 * left2 != right:
+            if (left1 * left2) != right:
                 return False
 
     return True
 
 
 
-
-
-
-
-
-
 values = dict()
 
-ar = list()
-readInput("algebrogram.txt", ar)
+'''ar = list()
+readInput("algebrogram.txt", ar)'''
 
-#ar = []
-#for l in sys.stdin:
-#    ar.append(l.strip())
+ar = []
+for l in sys.stdin:
+    ar.append(l.strip())
 
 ar = plus_multiply(ar)
 # all in good format and even only + and / operations :) nice
@@ -199,6 +198,8 @@ if(diff_vals(values, letters, taken) == False):
 
 #print(values)
 #print(ar)
+
+''' !!!!!!!!!!!!!!!!ok, takže nikdy nejsou na začátku nuly. + je třeba další optimatizace!!!!!!!!!!!!!!!!!!'''
 
 if try_values(values, letters, 0, taken):
     for i in range(len(letters)):
