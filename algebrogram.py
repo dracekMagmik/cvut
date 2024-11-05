@@ -309,9 +309,9 @@ ar = []
 '''input method'!!!!!!!!!!!!!!!!!!!!'''
 
 
-#readInput("algebrogram.txt", ar)
+readInput("uloha4/algebrogram.txt", ar)
 
-for l in sys.stdin: ar.append(l.strip())
+#for l in sys.stdin: ar.append(l.strip())
 
 
 
