@@ -31,7 +31,7 @@ def delej_matici(data, radky, sloupce):
     matice = list()
     for i in range(radky):
         matice.append(data[i*sloupce:(i+1)*sloupce])
-    print(matice)
+    #print(matice)
     return matice
 
 
@@ -55,7 +55,7 @@ def nejvetsi(matice):
     for i in range(delka):
         for j in range(delka):
             soucet = matice[i][j] + matice[(i+1)%delka][j] + matice[(i-1)%delka][j] + matice[i][(j+1)%delka] + matice[i][(j-1)%delka]
-            print(soucet)
+            #print(soucet)
             if hodnota < soucet:
                 hodnota = soucet
                 Imax = i
@@ -68,7 +68,7 @@ def nejvetsi(matice):
 
 
 #print(res("uloha5/test3.txt"))
-res(None)
+print(res(None))
 
 
 
