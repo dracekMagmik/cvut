@@ -1,3 +1,4 @@
+import sys
 import knihovnica
 
 
@@ -19,8 +20,8 @@ def Convert(ar): #array
 def nejvetsi(ar):
     best = [0, 0, 0, 0] # ulozeni nej vysledku so far
     for i in range(len(ar)):
-        pred = [(0, 0)] # stack predchozivh cisel
-        po = [(0, 0)] #stack pro nejvetsi mensi cilso za
+        pred = [(0, -1)] # stack predchozivh cisel
+        po = [(0, -1)] #stack pro nejvetsi mensi cilso za
         mensi_l = [0]*len(ar[i]) # list na index cisel pred
         mensi_p = [0]*len(ar[i]) # na cisla po
 
@@ -32,8 +33,11 @@ def nejvetsi(ar):
         for j in range(len(ar[i])):
             if ar[i][j] != 0:
                 objem = ar[i][j]*(mensi_p[j][1] - mensi_l[j][1] - 1)
+                if i == 58:
+                    pass
                 if objem > best[0]:
                     best = [objem, i-ar[i][j]+1, mensi_l[j][1]+1, i, mensi_p[j][1]-1]
+
 
     return best
 
@@ -69,7 +73,7 @@ def meze(ar, i, pred, po, mensi_l, mensi_p):
             po.append(nov)
 
         if j == len(ar[i])-1:
-            po_mensi(0, po, mensi_p,j)
+            po_mensi(0, po, mensi_p,j+1)
 
 
 def po_mensi(nove, po, mensi_p,j):
@@ -85,15 +89,16 @@ def pred_mensi(nove, pred): # pokud cislo na ktere zrovna koukam je mensi nez po
 
 
 
-path = input()
-ar = knihovnica.read_input(path)
 
-#ar = knihovnica.read_input("uloha6/smat_4.txt")
+ar = knihovnica.read_input(sys.argv[1])
+
+#ar = knihovnica.read_input("uloha6/test1.txt")
 
 knihovnica.split_pole(ar)
 knihovnica.list_all_to_int(ar)
 Convert(ar)
 
 best = nejvetsi(ar)
+
 print(best[1], best[2])
 print(best[3], best[4])
