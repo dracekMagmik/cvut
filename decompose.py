@@ -1,0 +1,3 @@
+import knihovnica
+
+knihovnica.hello()
