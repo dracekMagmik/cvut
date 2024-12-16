@@ -1,0 +1,16 @@
+pro zazipovaní:
+
+    v linuxu:
+        zip [jmeno finalniho zipu] [soubor co ma jit do zipu 1] [soubor 2] [soubor 3]
+
+    win:
+        označ a odešli na zip
+
+
+unzip:
+
+    linux:
+        unzip [jmeno zipu]
+
+    win:
+        quick

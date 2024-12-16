@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+import knihovnica
+
+knihovnica.hello()
+=======
 
 def cull(ar, goal):
     if ar[0] == goal:
@@ -138,3 +143,4 @@ if output[0] == True:
 else:
     print("NEEXISTUJE")
 
+>>>>>>> cb28b67a9ebcfafc541bf21a1914bade60b0920a
